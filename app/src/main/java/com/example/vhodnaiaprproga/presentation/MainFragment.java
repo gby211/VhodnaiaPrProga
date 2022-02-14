@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.vhodnaiaprproga.R;
 import com.example.vhodnaiaprproga.databinding.FragmentMainBinding;
 import com.example.vhodnaiaprproga.domain.MainViewModel;
 
@@ -36,14 +37,18 @@ public class MainFragment extends Fragment {
         binding = FragmentMainBinding.inflate(getLayoutInflater());
 
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
-
+        binding.spinner.setPrompt("Выберите валюту");
+        binding.spinner2.setPrompt("Выберите валюту");
+        binding.spinner.setSelection(0);
+        binding.spinner2.setSelection(0);
 
         binding.imageButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
                 Log.d("TAG", "onClick: ");
-                mViewModel.getValue().observe(getViewLifecycleOwner(), new Observer<Float>() {
+
+                String tmp = getResources().getStringArray(R.array.currency)[binding.spinner.getSelectedItemPosition()] + "/" + getResources().getStringArray(R.array.currency)[binding.spinner2.getSelectedItemPosition()];
+                mViewModel.getValue(tmp).observe(getViewLifecycleOwner(), new Observer<Float>() {
                     @Override
                     public void onChanged(Float aFloat) {
                         Float firstValue = Float.valueOf(binding.editTextTextPersonName.getText().toString());

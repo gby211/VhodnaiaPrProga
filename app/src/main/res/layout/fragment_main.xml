@@ -28,8 +28,8 @@
 
     <Spinner
         android:id="@+id/spinner2"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="30dp"
         android:entries="@array/currency"
         app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName2"
@@ -40,8 +40,8 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="85dp"
-        android:layout_marginTop="82dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="80dp"
         android:text="You send"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -59,8 +59,8 @@
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="30dp"
         android:entries="@array/currency"
         app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName"

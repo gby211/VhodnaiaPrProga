@@ -19,5 +19,5 @@ public class MainViewModel extends AndroidViewModel {
 
     }
 
-    public LiveData<Float> getValue(){return retrofitClass.getValue();}
+    public LiveData<Float> getValue(String currency){return retrofitClass.getValue(currency);}
 }
