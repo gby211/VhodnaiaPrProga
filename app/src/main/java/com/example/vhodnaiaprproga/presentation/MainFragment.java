@@ -4,19 +4,24 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.renderscript.ScriptGroup;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.vhodnaiaprproga.databinding.FragmentMainBinding;
+import com.example.vhodnaiaprproga.domain.MainViewModel;
 
 
 public class MainFragment extends Fragment {
 
     private FragmentMainBinding binding;
-
+    MainViewModel mViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,26 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentMainBinding.inflate(getLayoutInflater());
+
+        mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+
+
+        binding.imageButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Log.d("TAG", "onClick: ");
+                mViewModel.getValue().observe(getViewLifecycleOwner(), new Observer<Float>() {
+                    @Override
+                    public void onChanged(Float aFloat) {
+                        Float firstValue = Float.valueOf(binding.editTextTextPersonName.getText().toString());
+                        firstValue = firstValue * aFloat;
+                        binding.editTextTextPersonName2.setText(firstValue.toString());
+                    }
+                });
+            }
+        });
+
 
         return binding.getRoot();
         //return inflater.inflate(R.layout.fragment_main, container, false);
