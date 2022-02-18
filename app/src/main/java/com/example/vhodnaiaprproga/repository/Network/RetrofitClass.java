@@ -23,26 +23,24 @@ public class RetrofitClass {
         api = retrofit.create(APIMoney.class);
     }
 
-    public LiveData<Float> getValue(String currency){
-        MutableLiveData<Float> value = new MutableLiveData<>();
-        api.getMultiplier(currency).enqueue(new Callback<ValuePojo>() {
+    public LiveData<ConvertData> getValue(String convertFrom, String convertTo){
+
+        MutableLiveData<ConvertData> stockPrice = new MutableLiveData<>();
+
+        Call<ConvertData> call = api.getConvertDataFromAPI(convertFrom, convertTo, BuildConfig.API_KEY);
+        call.enqueue(new Callback<ConvertData>() {
             @Override
-            public void onResponse(Call<ValuePojo> call, Response<ValuePojo> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    ValuePojo valuePojo = response.body();
-                    Log.d("TAG", "onResponse: "+ response.body());
-                    Float value1 = valuePojo.getConversion_rate();
-                    Log.d("TAG", "onResponse: "+ value1);
-                    value.setValue(value1);
+            public void onResponse(Call<ConvertData> call, Response<ConvertData> response) {
+                if (response.isSuccessful() && response.body() != null){
+                    stockPrice.setValue(response.body());
                 }
             }
             @Override
-            public void onFailure(Call<ValuePojo> call, Throwable t) {
-                Log.e("ggssss", t.toString()+ call);
-                Log.d("ggssss","123");
+            public void onFailure(Call<ConvertData> call, Throwable t) {
+                Log.e("API", "server is not responding"+t+call);
             }
         });
-        return value;
+        return stockPrice;
     }
 
 }
