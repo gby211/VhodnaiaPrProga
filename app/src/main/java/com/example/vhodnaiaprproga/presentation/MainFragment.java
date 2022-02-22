@@ -47,11 +47,14 @@ public class MainFragment extends Fragment {
             public void onClick(View view) {
                 Log.d("TAG", "onClick: ");
 
-                String tmp = getResources().getStringArray(R.array.currency)[binding.spinner.getSelectedItemPosition()] + "/" + getResources().getStringArray(R.array.currency)[binding.spinner2.getSelectedItemPosition()];
+                String tmp =
+                        getResources().getStringArray(R.array.currency)[binding.spinner.getSelectedItemPosition()]
+                                + "/" + getResources().getStringArray(R.array.currency)[binding.spinner2.getSelectedItemPosition()];
                 mViewModel.getValue(tmp).observe(getViewLifecycleOwner(), new Observer<Float>() {
                     @Override
                     public void onChanged(Float aFloat) {
-                        Float firstValue = Float.valueOf(binding.editTextTextPersonName.getText().toString());
+                        Float firstValue =
+                                Float.valueOf(binding.editTextTextPersonName.getText().toString());
                         firstValue = firstValue * aFloat;
                         binding.editTextTextPersonName2.setText(firstValue.toString());
                     }
